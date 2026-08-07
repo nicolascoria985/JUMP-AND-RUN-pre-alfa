@@ -1,4 +1,4 @@
-// --- CAPTURA DE TECLADO ---
+
 void keyPressed() {
   if (keyCode == LEFT || key == 'a')  teclaIzquierda = true;
   if (keyCode == RIGHT || key == 'd') teclaDerecha = true;
