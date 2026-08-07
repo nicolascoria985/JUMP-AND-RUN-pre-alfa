@@ -13,7 +13,7 @@ boolean enElSuelo = false;
 
 
 float camaraX = 0; 
-float anchoSuelo = 400; // Ancho de cada bloque de suelo
+float anchoSuelo = 400; 
 
 
 boolean teclaIzquierda = false;
@@ -24,7 +24,7 @@ void setup() {
 }
 
 void draw() {
-  background(135, 206, 235); // Cielo
+  background(135, 206, 235); 
   
 
   velocidadX = 0;
