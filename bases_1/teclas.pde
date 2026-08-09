@@ -2,7 +2,7 @@
 void keyPressed() {
   if (keyCode == LEFT || key == 'a')  heroe.teclaIzquierda = true;
   if (keyCode == RIGHT || key == 'd') heroe.teclaDerecha = true;
-  if (keyCode == UP || key == 'w')    heroe.saltar();
+  if (keyCode == UP || key == ' ')    heroe.saltar();
 }
 
 void keyReleased() {
