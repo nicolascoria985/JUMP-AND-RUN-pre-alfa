@@ -1,6 +1,8 @@
-//plataforma objeto; anda mal xd
+ArrayList<Plataforma> listaPlataformas = new ArrayList<Plataforma>(); //esta es una lista dinamica que solo guarda objetos de tipo "plataforma"
+float proximaPlataformaX = 400; // desde aca empieza la primera 
+
 Jugador heroe;
-float gravedad = 0.6;
+float gravedad = 0.4;
 
 // Variables de la Cámara y Bucle
 float camaraX = 0; 
@@ -9,8 +11,12 @@ float anchoNubeBucle = 300;
 
 void setup() {
   size(800, 600);
-  // Inicializamos al jugador en la posición X:100, Y:200
-  heroe = new Jugador(100, 200); 
+  heroe = new Jugador(100, 300); 
+  
+// con esto fabricamos almenos 5 plataformas iniciales 
+  for(int i = 0; i < 5; i++) {
+    crearNuevaPlataforma();
+  }
 }
 
 void draw() {
@@ -45,27 +51,54 @@ void draw() {
   stroke(0);
   
   // --- ESCENARIO Y JUGADOR (MUNDO REAL) ---
-  heroe.enElSuelo = false; // Reseteamos estado antes de verificar colisiones
+  heroe.enElSuelo = false; 
   int bloqueInicio = floor(camaraX / anchoSuelo);
   int bloquesVisibles = ceil(width / anchoSuelo) + 1;
   
   pushMatrix();
   translate(-camaraX, 0);
   
-  fill(34, 139, 34); // Suelo verde
+  // A. Dibujar Suelo verde continuo
+  fill(34, 139, 34); 
   for (int i = bloqueInicio; i <= bloqueInicio + bloquesVisibles; i++) {
     float sueloX = i * anchoSuelo;
     float sueloY = 500;
     float sueloAlto = 100;
     
     rect(sueloX, sueloY, anchoSuelo, sueloAlto);
-    
-    // DETECCIÓN DE COLISIÓN (Enviamos los datos del suelo al jugador)
     heroe.verificarColisionSuelo(sueloX, sueloY, anchoSuelo);
   }
   
-  // Dibujamos al jugador en el espacio del mundo
+  // B. NUEVO: Controlar, dibujar y hacer chocar la lista de plataformas flotantes
+  for (int i = listaPlataformas.size() - 1; i >= 0; i--) {
+    Plataforma plat = listaPlataformas.get(i);
+    plat.mostrar(); // Dibuja la plataforma actual
+    
+    // si las cordenas de las plataformas coinciden con las nuestras, rebotamos en ellas
+    heroe.verificarColisionSuelo(plat.pos.x, plat.pos.y, plat.ancho);
+    
+    // si nos quedamos muy lejos de una plataforma, esta se borra
+    if (plat.pos.x < camaraX - 200) {
+      listaPlataformas.remove(i);
+    }
+  }
+  
+  // si nos  acercamos mucho al otro extremo se farbrica una nueva plataforma 
+  if (proximaPlataformaX < camaraX + width + 400) {
+    crearNuevaPlataforma();
+  }
+  
+  // nuestro personaje se superpone ante todo
   heroe.dibujar();
- //objeto.mostrar();
+  
   popMatrix();
+}
+
+// con esto creamos las plataformas en posiciones aleatorias
+void crearNuevaPlataforma() {
+  float aleatorioY = random(300, 450); // alturas (accesibles para el jugador)
+  listaPlataformas.add(new Plataforma(proximaPlataformaX, aleatorioY));
+  
+  // esta bandera de constructor crea mas plataformas a partir de un rango aleatorio 
+  proximaPlataformaX += random(250, 350); 
 }
