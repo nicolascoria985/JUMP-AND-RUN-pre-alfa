@@ -26,8 +26,8 @@ class Jugador {
   void actualizar(float gravedad) {
     // Calculamos velocidad según las variables booleanas que activa el teclado
     velX = 0;
-    if (teclaIzquierda) velX = -5;
-    if (teclaDerecha)   velX = 5;
+    if (teclaIzquierda) velX = -7;
+    if (teclaDerecha)   velX = 7;
     
     x += velX;
     
@@ -39,7 +39,7 @@ class Jugador {
   // Se encarga de su propia representación visual
   void dibujar() {
     fill(255, 69, 0); // Rojo anaranjado
-    ellipse(x, y, ancho, alto);
+    rect(x, y, 50, 50);
   }
   
   // Lógica interna para ejecutar el salto
