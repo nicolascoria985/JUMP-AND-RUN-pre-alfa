@@ -36,11 +36,10 @@ class Jugador {
     y += velY;
   }
   
-  // Se encarga de su propia representación visual
+  // Se encarga de dibujar el sprite
   void dibujar() {
-    fill(255, 69, 0); // Rojo anaranjado
-    rect(x, y, 50, 50);
-  }
+ image(img, x, y, ancho, alto);
+}
   
   // Lógica interna para ejecutar el salto
   void saltar() {
