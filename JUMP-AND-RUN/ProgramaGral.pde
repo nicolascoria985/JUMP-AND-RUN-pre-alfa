@@ -2,6 +2,7 @@ ArrayList<Plataforma> listaPlataformas = new ArrayList<Plataforma>(); //esta es 
 float proximaPlataformaX = 400; // desde aca empieza la primera 
 
 Jugador heroe;
+PImage imgMario;
 float gravedad = 0.4;
 
 // Variables de la Cámara y Bucle
@@ -11,6 +12,10 @@ float anchoNubeBucle = 300;
 
 void setup() {
   size(800, 600);
+  
+//se carga la imagen del Mario para el pj
+  imgMario = loadImage("mario sprite.png");
+
   heroe = new Jugador(100, 300); 
   
 // con esto fabricamos almenos 5 plataformas iniciales 
@@ -24,7 +29,7 @@ void draw() {
   
   // --- ACTUALIZACIÓN DEL JUGADOR ---
   heroe.actualizar(gravedad);
-  
+ 
   // --- SISTEMA DE CÁMARA ---
   if (heroe.x > width / 2) {
     camaraX = heroe.x - width / 2;
@@ -89,7 +94,7 @@ void draw() {
   }
   
   // nuestro personaje se superpone ante todo
-  heroe.dibujar();
+  heroe.dibujar(imgMario);
   
   popMatrix();
 }
